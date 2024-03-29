@@ -1,24 +1,53 @@
 import Filter from './components/Filter'
 import Countries from "./components/Countries"
-import { useState } from 'react'
+import Search from './components/Search'
+import Card from './components/Card'
+import { useState, useRef } from 'react'
 
 export default function App() {
 
   const [region, setRegion] = useState('')
   const [isFiltered, setIfFiltered] = useState(false)
 
-  function updateRegionValue(newValue){
-    if (newValue === 'All'){
+  const [searchInput, setSearchInput] = useState('')
+  const [isSearched, setIsSearched] = useState(false)
+
+  function updateRegionValue(regionSelection){
+    if (regionSelection === 'All'){
       setIfFiltered(false)
-      setRegion(newValue)
+      setRegion(regionSelection)
     } else {
-      setRegion(newValue)
+      setRegion(regionSelection)
       setIfFiltered(true) 
     }
   }
 
-// console.log(region)
-// console.log(isFiltered)
+  function updateSearch(searchText){
+    if (searchText === ''){
+      setIsSearched(false)
+
+    } else {
+      setIsSearched(true)
+      setSearchInput(searchText)
+
+    }
+  }
+
+  const [isCardOpen, setIsCardOpen] = useState(false)
+  const [countryCardName, setCountryCardName] = useState(null)
+
+  function toggleCardOpen(){
+      setIsCardOpen(prevCardOpen => !prevCardOpen)
+    }
+
+  function setCountry(countryName){
+    setCountryCardName(countryName)
+  }
+  
+  const sortedArray = useRef([])
+  function handleRefUpdate(ref){
+    sortedArray.current = ref
+  }
 
   return (
     <>
@@ -30,15 +59,25 @@ export default function App() {
             Dark Mode</button>
         </nav>
       </header>
+      {!isCardOpen ? 
       <main className="main">
         <section className="search-filter-section">
-          {/* <Input /> */}
+          <Search updateSearch={updateSearch} serarchInput={searchInput} />
           <Filter updateRegionValue={updateRegionValue} region={region} />
         </section>
         <section className="countries">
-          <Countries isFiltered={isFiltered} region={region}/>
+          <Countries isFiltered={isFiltered} region={region}
+            isSearched={isSearched} searchInput={searchInput}
+            toggleCardOpen={toggleCardOpen}
+            setCountry={setCountry}
+            handleRefUpdate={handleRefUpdate}
+          />
         </section>
-      </main>
+      </main> 
+      : <Card toggleCardOpen={toggleCardOpen}
+        countryCardName={countryCardName}
+        sortedArray={sortedArray.current}
+      />}
     </>
   )
 }

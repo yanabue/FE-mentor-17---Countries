@@ -1,8 +1,14 @@
-
+/* eslint-disable react/prop-types */
 
 export default function Country(props){
+
+    function handleClick(){
+        props.toggleCardOpen();
+        props.setCountry(props.name);
+    }
+
     return (
-        <div className="country">
+        <button className="country" onClick={handleClick}>
             <img src={props.flag} alt={props.alt} className="flag-img" />
             <div className="country-data">
                 <h2 className="country-name">{props.name}</h2>
@@ -12,6 +18,6 @@ export default function Country(props){
                     <p className="capital"><span className="title-p">Capital:</span> {props.capital}</p>
                 </div>
             </div>
-        </div>
+        </button>
     )
 }

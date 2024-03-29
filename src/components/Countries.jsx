@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState, useRef } from "react";
 import Country from "./Country";
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 
 export default function Countries(props){
 
@@ -34,6 +34,7 @@ export default function Countries(props){
             let nameB = b.name.common.toUpperCase();
             return nameA > nameB ? 1 : -1;
         })
+        props.handleRefUpdate(sortedArray.current);
         setCountriesArray(sortedArray.current)
     }
 
@@ -44,20 +45,44 @@ export default function Countries(props){
         } else {
             setCountriesArray(sortedArray.current)
         }
-    }, [props.region])
+    }, [props.region, props.isFiltered])
+
+    useEffect(() => {
+        if (props.isSearched){
+            let newRegex = new RegExp(`${props.searchInput.toLowerCase()}`)
+            setCountriesArray(sortedArray.current.filter(country => newRegex.test(country.name.common.toLowerCase())))
+        } else {
+            setCountriesArray(sortedArray.current)
+        }
+    }, [props.searchInput, props.isSearched])
     
+    function putCommas(population){
+        let numArr = population.toString().split('');
+
+        let arrLength = numArr.length; //7
+        let i = -3;
+        while (arrLength >= 3){
+            numArr.splice(i, 0, ",")
+            i = i - 4;
+            arrLength = arrLength - 4;
+        }
+        return numArr.join('')
+    }
+
     // Based on the countriesArray - all countries are mapped over and created an element for
     function renderCountries(){
         return countriesArray.map(country => {
             return (
-            <Country 
-            key={nanoid()}
-            flag={country.flags.png}
-            alt={country.flags.alt}
-            name={country.name.common}
-            population={country.population}
-            region={country.region}
-            capital={country.capital}
+              <Country 
+                key={nanoid()}
+                flag={country.flags.png}
+                alt={country.flags.alt}
+                name={country.name.common}
+                population={country.population ? putCommas(country.population) : 'No Population'}
+                region={country.region || 'No Region'}
+                capital={country.capital || 'No Capital'}
+                toggleCardOpen={props.toggleCardOpen}
+                setCountry={props.setCountry}
             />
             )
         })
