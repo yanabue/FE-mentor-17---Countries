@@ -3,8 +3,8 @@ export default function Filter(props){
 
     return (
         <div className="filter">
-            <select name="filter" className="filter-select" value={props.region} onChange={(e) => props.updateRegionValue(e.target.value)}>
-                <option value="">Filter by Region</option>
+            <select name="filter" className="filter-select shadow" value={props.region} onChange={(e) => props.updateRegionValue(e.target.value)}>
+                <option value="All">Filter by Region</option>
                 <option value="Africa">Africa</option>
                 <option value="Americas">America</option>
                 <option value="Asia">Asia</option>

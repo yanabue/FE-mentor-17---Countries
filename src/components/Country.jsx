@@ -8,7 +8,7 @@ export default function Country(props){
     }
 
     return (
-        <button className="country" onClick={handleClick}>
+        <button className="country shadow" onClick={handleClick}>
             <img src={props.flag} alt={props.alt} className="flag-img" />
             <div className="country-data">
                 <h2 className="country-name">{props.name}</h2>
