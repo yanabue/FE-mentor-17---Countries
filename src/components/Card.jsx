@@ -2,9 +2,7 @@
 import { nanoid } from "nanoid";
 
 export default function Card(props){
-    console.log(props.countryCardName)
     let country = props.sortedArray.find(country => country.name.common === props.countryCardName)
-    console.log(country)
 
     function renderBorders(){
         
@@ -22,7 +20,7 @@ export default function Card(props){
     }
 
     return (
-        <div className="country-card">
+        <div className='country-card fade-in'>
             <button className="back-card shadow" onClick={props.toggleCardOpen}>
                 <i className="fa-solid fa-arrow-left"></i>
                 Back

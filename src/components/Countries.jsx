@@ -13,7 +13,7 @@ export default function Countries(props){
         fetchCountries()
     }, [])
     
-    // Runs on first render
+    // Runs on first render to fetch array of objects
     async function fetchCountries(){
         try {
             const response = await fetch('https://restcountries.com/v3.1/all')
@@ -47,6 +47,7 @@ export default function Countries(props){
         }
     }, [props.region, props.isFiltered])
 
+    // Whenever the user searches for something - a Regex test is used to filter the countries by name
     useEffect(() => {
         if (props.isSearched){
             let newRegex = new RegExp(`${props.searchInput.toLowerCase()}`)
@@ -60,7 +61,6 @@ export default function Countries(props){
 
     // Based on the countriesArray - all countries are mapped over and created an element for
     function renderCountries(){
-        console.log(countriesArray)
         return countriesArray.map(country => {
             return (
               <Country 

@@ -1,10 +1,6 @@
 :root {
   --Dark-Blue: hsl(209, 23%, 22%); /*(Dark Mode Elements)*/
-  --Very-Dark-Blue: hsl(
-    207,
-    26%,
-    17%
-  ); /*(Dark Mode Background) / (Light Mode Text)*/
+  --Very-Dark-Blue: hsl(207, 26%, 17%); /*(Dark Mode Background) / (Light Mode Text)*/
   --Dark-Gray: hsl(0, 0%, 52%); /*(Light Mode Input)*/
   --Very-Light-Gray: hsl(0, 0%, 98%); /*(Light Mode Background)*/
   --White: hsl(0, 0%, 100%); /*(Dark Mode Text & Light Mode Elements)*/
@@ -28,7 +24,6 @@ button {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 4rem;
-  /* box-shadow: 3px 3px 5px hsla(0, 0%, 38%, 0.5); */
 }
 
 .theme-button {
@@ -40,10 +35,6 @@ button {
   cursor: pointer;
   border-radius: 8px;
   padding: 4px 8px;
-}
-
-.theme-button:hover {
-  box-shadow: inset -2px -2px 5px hsla(0, 0%, 13%, 0.5);
 }
 
 .fa-moon,
@@ -150,7 +141,10 @@ span {
   padding: 2rem 4rem;
   min-height: 100vh;
   background-color: var(--Very-Light-Gray);
+}
 
+.fade-in {
+  animation: page-transition-open 0.3s ease-out;
 }
 
 .back-card {
@@ -207,7 +201,7 @@ span {
 
 .border-button {
   padding: 8px 20px;
-  margin: 10px 10px 10px 0px;
+  margin: 0px 10px 10px 0px;
   border-radius: 4px;
   cursor: pointer;
   justify-content: flex-start;
@@ -255,8 +249,7 @@ span {
 .dark .border-button,
 .dark .back-card,
 .dark .random-button,
-.dark .to-top-button,
-.dark .country-card {
+.dark .to-top-button {
   background-color: var(--Dark-Blue);
 }
 
@@ -265,6 +258,7 @@ span {
 }
 
 .dark .main,
+.dark .country-card,
 .dark {
   background-color: var(--Very-Dark-Blue);
 }
@@ -277,14 +271,14 @@ span {
   box-shadow: 2px 2px 5px rgb(36, 37, 40);
 }
 
-.to-top-button{
-    position: fixed;
-    bottom: 40px;
-    right: 20px;
-    border-radius: 50%;
-    padding: 12px 15px;
-    background-color: var(--White);
-    cursor: pointer;
+.to-top-button {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  border-radius: 50%;
+  padding: 12px 15px;
+  background-color: var(--White);
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {
@@ -349,7 +343,7 @@ span {
     align-self: center;
   }
 
-  .country-card{
+  .country-card {
     padding: 1.5rem 3rem;
   }
 
@@ -357,7 +351,16 @@ span {
     width: 100%;
   }
 
-  .country-stats-card p{
+  .country-stats-card p {
     font-size: 1rem;
+  }
+}
+
+@keyframes page-transition-open {
+  0% {
+    transform: scale(50%);
+  }
+  100% {
+    transform: scale(100%);
   }
 }

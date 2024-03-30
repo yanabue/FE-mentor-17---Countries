@@ -54,7 +54,7 @@ export default function App() {
   // For click on country button / back button
   function toggleCardOpen(){
       setIsCardOpen(prevCardOpen => !prevCardOpen)
-    }
+  }
 
   // Sets the country name by the user clicking a country button
   function setCountry(countryName){
@@ -99,14 +99,12 @@ export default function App() {
     toggleCardOpen()
   }
 
-console.log(sortedArray.current)
-
   return (
     <div className={darkTheme ? 'dark' : ''}>
       <header className="header">
         <nav className="nav-bar shadow">
           <h1 className="main-title">Where in the world?</h1>
-          <button className="theme-button" onClick={toggleDarkTheme}>
+          <button className="theme-button shadow" onClick={toggleDarkTheme}>
             {!darkTheme ?
             <>
               <i className="fa-regular fa-moon" alt="moon dark theme icon"></i> 
@@ -138,7 +136,9 @@ console.log(sortedArray.current)
           />
         </section>
       </main> 
-      : <Card toggleCardOpen={toggleCardOpen}
+      : <Card 
+        isCardOpen={isCardOpen}
+        toggleCardOpen={toggleCardOpen}
         setCountry={setCountry}
         countryCardName={countryCardName}
         sortedArray={sortedArray.current}
